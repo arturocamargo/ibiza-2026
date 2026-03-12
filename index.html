@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ibiza · Agosto 2026</title>
+  <meta property="og:title" content="Ibiza · Agosto 2026">
+  <meta property="og:description" content="Despedida Rey · 14–18 agosto · 8 confirmados">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0f;
+      --card: #14141c;
+      --border: rgba(255,255,255,0.08);
+      --white: #f0f0ee;
+      --gray: #666;
+      --accent: #c8a97e;
+      --green: #4ade80;
+    }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 5rem 1.5rem 3rem;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, rgba(200,169,126,0.12) 0%, transparent 70%);
+    }
+    .hero-eyebrow {
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 10vw, 5rem);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .hero-sub {
+      font-size: 0.85rem;
+      color: var(--gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* Stats row */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    .stat {
+      flex: 1;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 200;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* Content */
+    .content {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+    .section-title {
+      font-size: 0.55rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Schedule */
+    .night {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .night:last-child { border-bottom: none; }
+    .night-date {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+    .night-date .night-day {
+      font-size: 1.2rem;
+      font-weight: 200;
+      color: var(--white);
+      display: block;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .night-events {}
+    .night-event {
+      padding: 0.4rem 0;
+    }
+    .night-event-title {
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 400;
+    }
+    .night-event-detail {
+      font-size: 0.7rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+    .badge-bday {
+      background: rgba(200,169,126,0.2);
+      color: var(--accent);
+      border: 1px solid rgba(200,169,126,0.3);
+    }
+    .badge-legend {
+      background: rgba(74,222,128,0.1);
+      color: var(--green);
+      border: 1px solid rgba(74,222,128,0.2);
+    }
+
+    /* Villa card */
+    .villa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .villa-name {
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .villa-meta {
+      font-size: 0.7rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .villa-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .villa-price {
+      border-top: 1px solid var(--border);
+      padding-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .villa-price-main {
+      font-size: 1.4rem;
+      font-weight: 200;
+      color: var(--accent);
+    }
+    .villa-price-sub {
+      font-size: 0.65rem;
+      color: var(--gray);
+    }
+    .villa-rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(200,169,126,0.1);
+      border: 1px solid rgba(200,169,126,0.2);
+      border-radius: 4px;
+      padding: 3px 8px;
+      margin-bottom: 0.75rem;
+    }
+    .villa-link {
+      display: block;
+      margin-top: 1rem;
+      text-align: center;
+      background: rgba(200,169,126,0.12);
+      border: 1px solid rgba(200,169,126,0.3);
+      color: var(--accent);
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .villa-link:hover {
+      background: rgba(200,169,126,0.2);
+    }
+
+    /* Budget */
+    .budget-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+    }
+    .budget-row:last-child { border-bottom: none; }
+    .budget-row.total {
+      padding-top: 0.75rem;
+      color: var(--accent);
+      font-weight: 400;
+      font-size: 0.9rem;
+    }
+    .budget-label { color: var(--gray); }
+    .budget-value { color: var(--white); }
+
+    /* Clubs */
+    .club-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .club-row:last-child { border-bottom: none; }
+    .club-initial {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .club-name { font-size: 0.88rem; margin-bottom: 2px; }
+    .club-detail { font-size: 0.7rem; color: var(--gray); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Despedida Rey</div>
+    <h1>Ibiza</h1>
+    <div class="hero-sub">14 — 18 agosto, 2026</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-value">4</span>
+      <span class="stat-label">Noches</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">8</span>
+      <span class="stat-label">Banda</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">4</span>
+      <span class="stat-label">Fiestas</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">€997</span>
+      <span class="stat-label">Villa / persona</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Schedule -->
+    <div class="section">
+      <div class="section-title">Schedule</div>
+
+      <div class="night">
+        <div class="night-date">
+          <span class="night-day">14</span>
+          Vie
+        </div>
+        <div class="night-events">
+          <div class="night-event">
+            <div class="night-event-title">Llegada + Pacha</div>
+            <div class="night-event-detail">Marco Carola's Music On · Techno/house · €50-80</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="night">
+        <div class="night-date">
+          <span class="night-day">15</span>
+          Sáb
+        </div>
+        <div class="night-events">
+          <div class="night-event">
+            <div class="night-event-title">
+              Noche principal
+              <span class="badge badge-bday">🎂 Rey</span>
+            </div>
+            <div class="night-event-detail">4pm: Ushuaïa ANTS · Midnight: Hï Ibiza Black Coffee</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="night">
+        <div class="night-date">
+          <span class="night-day">16</span>
+          Dom
+        </div>
+        <div class="night-events">
+          <div class="night-event">
+            <div class="night-event-title">Boat party + Glitterbox</div>
+            <div class="night-event-detail">Día: boat party · Noche: Hï Ibiza (Glitterbox) o Amnesia</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="night">
+        <div class="night-date">
+          <span class="night-day">17</span>
+          Lun
+        </div>
+        <div class="night-events">
+          <div class="night-event">
+            <div class="night-event-title">
+              DC10 Circoloco
+              <span class="badge badge-legend">Legendario</span>
+            </div>
+            <div class="night-event-detail">El lunes más famoso de Ibiza · Underground · No falta</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="night">
+        <div class="night-date">
+          <span class="night-day">18</span>
+          Mar
+        </div>
+        <div class="night-events">
+          <div class="night-event">
+            <div class="night-event-title">Salida</div>
+            <div class="night-event-detail">Brunch · descanso · vuelo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Villa -->
+    <div class="section">
+      <div class="section-title">Villa</div>
+      <div class="villa-card">
+        <div class="villa-rating">⭐ 5.0 · 21 reseñas · Top Guest Favorite</div>
+        <div class="villa-name">Can Agua</div>
+        <div class="villa-meta">
+          <span>🛏️ 4 cuartos</span>
+          <span>🚿 3 baños</span>
+          <span>👥 8 personas</span>
+          <span>🏊 Alberca privada</span>
+        </div>
+        <div class="villa-meta" style="color: #4ade80">
+          <span>✅ Disponible Aug 14-18</span>
+          <span>🏷️ Precio con descuento</span>
+        </div>
+        <div class="villa-price">
+          <div>
+            <div class="villa-price-main">€997</div>
+            <div class="villa-price-sub">por persona · 4 noches</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:0.9rem">$151,579 MXN</div>
+            <div class="villa-price-sub">total villa</div>
+          </div>
+        </div>
+        <a class="villa-link" href="https://www.airbnb.com/rooms/1404136396447326201?adults=8&check_in=2026-08-14&check_out=2026-08-18" target="_blank">
+          Ver en Airbnb →
+        </a>
+      </div>
+    </div>
+
+    <!-- Budget -->
+    <div class="section">
+      <div class="section-title">Budget estimado / persona</div>
+      <div class="budget-row">
+        <span class="budget-label">Villa (4 noches)</span>
+        <span class="budget-value">€997</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Entradas clubs (4 noches)</span>
+        <span class="budget-value">€250 – 300</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Drinks</span>
+        <span class="budget-value">€400 – 500</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Cenas + restaurantes</span>
+        <span class="budget-value">€200 – 300</span>
+      </div>
+      <div class="budget-row">
+        <span class="budget-label">Boat party + transporte</span>
+        <span class="budget-value">€150</span>
+      </div>
+      <div class="budget-row total">
+        <span>Total sin vuelos</span>
+        <span>~€2,000 – 2,250</span>
+      </div>
+    </div>
+
+    <!-- Clubs -->
+    <div class="section">
+      <div class="section-title">Los clubs</div>
+      <div class="club-row">
+        <div class="club-initial">P</div>
+        <div>
+          <div class="club-name">Pacha</div>
+          <div class="club-detail">Vie 14 · Marco Carola's Music On · La noche de llegada</div>
+        </div>
+      </div>
+      <div class="club-row">
+        <div class="club-initial">U</div>
+        <div>
+          <div class="club-name">Ushuaïa</div>
+          <div class="club-detail">Sáb 15 · ANTS METALWORKS · 4pm–midnight · Outdoor pool</div>
+        </div>
+      </div>
+      <div class="club-row">
+        <div class="club-initial">Hï</div>
+        <div>
+          <div class="club-name">Hï Ibiza</div>
+          <div class="club-detail">Sáb 15 → Black Coffee · Dom 16 → Glitterbox · Club #1 del mundo</div>
+        </div>
+      </div>
+      <div class="club-row">
+        <div class="club-initial">D</div>
+        <div>
+          <div class="club-name">DC10 Circoloco</div>
+          <div class="club-detail">Lun 17 · El lunes más legendario de Ibiza · Sin VIP, solo música</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Armado por Clawdio 🦞 · Despedida Rey Ibiza 2026</footer>
+
+</body>
+</html>
